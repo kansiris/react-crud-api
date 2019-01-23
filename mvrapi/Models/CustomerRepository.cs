@@ -31,8 +31,8 @@ namespace mvrapi.Models
             cmd.Parameters.AddWithValue("@Status", customer.Status);
             cmd.Parameters.AddWithValue("@DeliveryLocationLattitude", customer.DeliveryLocationLattitude);
             cmd.Parameters.AddWithValue("@DeliveryLocationLongitude", customer.DeliveryLocationLongitude);
-            cmd.Parameters.AddWithValue("@CreateDate", DateTime.Now);
-            cmd.Parameters.AddWithValue("@modifieddate", DateTime.Now);
+            cmd.Parameters.AddWithValue("@CreateDate", DateTime.Now.ToString("dd/MM/yyyy"));
+            //cmd.Parameters.AddWithValue("@modifieddate", DateTime.Now.ToString("dd/MM/yyyy"));
             cmd.Parameters.AddWithValue("@OTP", customer.OTP);
             cmd.Parameters.AddWithValue("@mobile1", customer.mobile1);
             cmd.Parameters.AddWithValue("@mobile2", customer.mobile2);

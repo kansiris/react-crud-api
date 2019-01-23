@@ -18,8 +18,8 @@ namespace mvrapi.Models
         public string CustomerType { get; set; }
         public float DeliveryLocationLattitude { get; set; }
         public float DeliveryLocationLongitude { get; set; }
-        public DateTime CreateDate { get; set; }
-        public DateTime modifieddate { get; set; }
+        public string CreateDate { get; set; }
+        public string modifieddate { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
         public string OTP { get; set; }
