@@ -40,7 +40,7 @@ namespace mvrapi.Models
             con.Close();
             if (i == 1)
             {
-                return "Sucess";
+                return "Success";
             }
             else
             {
@@ -52,8 +52,9 @@ namespace mvrapi.Models
         {
            
             MySqlConnection con = new MySqlConnection(constr);
-            MySqlCommand cmd = new MySqlCommand("update villageproduct set ProductId=@ProductId, Productname=@Productname, Price=@Price, @Quantity=Quantity, weight=@weight, ShortDescription=@ShortDescription, LongDescription=@LongDescription, Remarks=@Remarks, Available=@Available, HSNcode=@HSNcode, SGST=@SGST, CGST=@CGST, Discount=@Discount, brand=@brand, Image=@Image, Manfacturedate=@Manfacturedate, Expirydate=@Expirydate, Updateddate=@Updateddate, createdate=@createdate where id=@id", con);
+            MySqlCommand cmd = new MySqlCommand("update villageproduct set ProductId=@ProductId,Productname=@Productname,Price=@Price,Quantity=@Quantity,weight=@weight,ShortDescription=@ShortDescription,LongDescription=@LongDescription,Remarks=@Remarks,Available=@Available,HSNcode=@HSNcode,SGST=@SGST,CGST=@CGST,Discount=@Discount,brand=@brand,Image=@Image,Manfacturedate=@Manfacturedate,Expirydate=@Expirydate,Updateddate=@Updateddate,createdate=@createdate where id=@id", con);
             MySqlDataAdapter sda = new MySqlDataAdapter(cmd);
+            cmd.Parameters.AddWithValue("@id", id);
             cmd.Parameters.AddWithValue("@ProductId", product.ProductId);
             cmd.Parameters.AddWithValue("@Productname", product.Productname);
             cmd.Parameters.AddWithValue("@Price", product.Price);
@@ -72,14 +73,14 @@ namespace mvrapi.Models
             cmd.Parameters.AddWithValue("@Manfacturedate", product.Manfacturedate);
             cmd.Parameters.AddWithValue("@Expirydate", product.Expirydate);
             var data = getproductbyid(id);
-            cmd.Parameters.AddWithValue("@createdate", data.createdate);
+            cmd.Parameters.AddWithValue("@createdate", data.createdate.ToString());
             cmd.Parameters.AddWithValue("@Updateddate", DateTime.Now.ToString("dd/MM/yyyy"));
             con.Open();
             int i = cmd.ExecuteNonQuery();
             con.Close();
             if (i == 1)
             {
-                return "Sucess";
+                return "Success";
             }
             else
             {
@@ -97,26 +98,26 @@ namespace mvrapi.Models
             villageproduct product = null;
             while (rdr.Read())
             {
-                 product = new villageproduct();
-                product.ProductId = rdr.GetValue(0).ToString();
-                product.Productname = rdr.GetValue(1).ToString();
-                product.Price = rdr.GetValue(2).ToString();
-                product.Quantity = rdr.GetValue(3).ToString();
-                product.Remarks = rdr.GetValue(4).ToString();
-                product.SGST = rdr.GetValue(5).ToString();
+                product = new villageproduct();
+                product.ProductId = rdr.GetValue(1).ToString();
+                product.Productname = rdr.GetValue(2).ToString();
+                product.Price = rdr.GetValue(3).ToString();
+                product.Quantity = rdr.GetValue(4).ToString();
+                product.weight = rdr.GetValue(5).ToString();
                 product.ShortDescription = rdr.GetValue(6).ToString();
                 product.LongDescription = rdr.GetValue(7).ToString();
+                product.Remarks = rdr.GetValue(8).ToString();
                 product.Available = rdr.GetValue(8).ToString();
-                product.brand = rdr.GetValue(9).ToString();
-                product.weight = rdr.GetValue(10).ToString();
-                product.CGST = rdr.GetValue(11).ToString();
-                product.HSNcode = rdr.GetValue(12).ToString();
-                product.Manfacturedate = rdr.GetValue(13).ToString();
-                product.Expirydate = rdr.GetValue(14).ToString();
+                product.HSNcode = rdr.GetValue(10).ToString();
+                product.SGST = rdr.GetValue(11).ToString();
+                product.CGST = rdr.GetValue(12).ToString();
+                product.Discount = rdr.GetValue(13).ToString();
+                product.brand = rdr.GetValue(14).ToString();
                 product.Image = rdr.GetValue(15).ToString();
-                product.Updateddate = rdr.GetValue(16).ToString();
-                product.createdate = rdr.GetValue(17).ToString();
-                product.Discount = rdr.GetValue(18).ToString();
+                product.Manfacturedate = rdr.GetValue(16).ToString();
+                product.Expirydate = rdr.GetValue(17).ToString();
+                product.createdate = rdr.GetValue(18).ToString();
+                product.Updateddate = rdr.GetValue(19).ToString();
             }
             con.Close();
             return product;  
@@ -132,7 +133,7 @@ namespace mvrapi.Models
             con.Close();
             if (i == 1)
             {
-                return "Sucess";
+                return "Success";
             }
             else
             {
@@ -150,25 +151,25 @@ namespace mvrapi.Models
             while (rdr.Read())
             {
                 villageproduct product = new villageproduct();
-                product.ProductId = rdr.GetValue(0).ToString();
-                product.Productname = rdr.GetValue(1).ToString();
-                product.Price = rdr.GetValue(2).ToString();
-                product.Quantity = rdr.GetValue(3).ToString();
-                product.Remarks = rdr.GetValue(4).ToString();
-                product.SGST = rdr.GetValue(5).ToString();
+                product.ProductId = rdr.GetValue(1).ToString();
+                product.Productname = rdr.GetValue(2).ToString();
+                product.Price = rdr.GetValue(3).ToString();
+                product.Quantity = rdr.GetValue(4).ToString();
+                product.weight = rdr.GetValue(5).ToString();
                 product.ShortDescription = rdr.GetValue(6).ToString();
                 product.LongDescription = rdr.GetValue(7).ToString();
+                product.Remarks = rdr.GetValue(8).ToString();
                 product.Available = rdr.GetValue(8).ToString();
-                product.brand = rdr.GetValue(9).ToString();
-                product.weight = rdr.GetValue(10).ToString();
-                product.CGST = rdr.GetValue(11).ToString();
-                product.HSNcode = rdr.GetValue(12).ToString();
-                product.Manfacturedate = rdr.GetValue(13).ToString();
-                product.Expirydate = rdr.GetValue(14).ToString();
+                product.HSNcode = rdr.GetValue(10).ToString();
+                product.SGST = rdr.GetValue(11).ToString();
+                product.CGST = rdr.GetValue(12).ToString();
+                product.Discount = rdr.GetValue(13).ToString();
+                product.brand = rdr.GetValue(14).ToString();
                 product.Image = rdr.GetValue(15).ToString();
-                product.Updateddate = rdr.GetValue(16).ToString();
-                product.createdate = rdr.GetValue(17).ToString();
-                product.Discount = rdr.GetValue(18).ToString();
+                product.Manfacturedate = rdr.GetValue(16).ToString();
+                product.Expirydate = rdr.GetValue(17).ToString();
+                product.createdate = rdr.GetValue(18).ToString();
+                product.Updateddate = rdr.GetValue(19).ToString();
                 productdetails.Add(product);
             }
             con.Close();
