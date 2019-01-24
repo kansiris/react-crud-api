@@ -97,8 +97,8 @@ namespace mvrapi.Models
                 customer.mobile1 = dr.GetValue(8).ToString();
                 customer.mobile2 = dr.GetValue(9).ToString();
                 customer.CustomerType = dr.GetValue(10).ToString();
-                customer.DeliveryLocationLattitude = (dr.GetValue(11).ToString());
-                customer.DeliveryLocationLongitude = (dr.GetValue(12).ToString());
+                customer.DeliveryLocationLattitude = dr.GetValue(11).ToString();
+                customer.DeliveryLocationLongitude = dr.GetValue(12).ToString();
                 customer.CreateDate = dr.GetValue(13).ToString();
                 customer.modifieddate = dr.GetValue(14).ToString();
                 customer.Status = dr.GetValue(15).ToString();
