@@ -16,8 +16,8 @@ namespace mvrapi.Models
         public string mobile1 { get; set; }
         public string mobile2 { get; set; }
         public string CustomerType { get; set; }
-        public float DeliveryLocationLattitude { get; set; }
-        public float DeliveryLocationLongitude { get; set; }
+        public string DeliveryLocationLattitude { get; set; }
+        public string DeliveryLocationLongitude { get; set; }
         public string CreateDate { get; set; }
         public string modifieddate { get; set; }
         public string Password { get; set; }
@@ -26,6 +26,6 @@ namespace mvrapi.Models
         public string Status { get; set; }
         public string ProfileImage { get; set; }
         public string ProfilePic { get; set; }
-        public string confirmpassword { get; set; }
+      
     }
 }
