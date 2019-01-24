@@ -34,17 +34,14 @@ namespace mvrapi.Controllers
         [Route("api/Customer/UserLogin")]
         public IHttpActionResult UserLogin(string email,string password)
          {
-            string msg;
+            Customer custdetails = new Customer();
             var data = custm.CustomerLogin(email, password);
-            if(data=="0")
+         if(data != null)
             {
-                msg = "Login Successfull";
+                custdetails = data;
             }
-            else
-            {
-                msg = "Email & Password Is not correct Try again..!! ";
-            }
-            return Json(msg);
+          
+            return Json(custdetails);
         }
     }
 }

@@ -19,12 +19,13 @@ namespace mvrapi.Models
         {
             
             MySqlConnection con = new MySqlConnection(constr);
-            MySqlCommand cmd = new MySqlCommand("Insert Into Customer(Firstname,Lastname,Email,Password,Billing_Address,Delivery_Address,Land_Mark,Status,DeliveryLocationLattitude,DeliveryLocationLongitude,CreateDate,modifieddate,OTP,mobile1,mobile2,ProfileImage,ProfilePic,CustomerType) values (@Firstname,@Lastname,@Email,@Password,@Billing_Address,@Delivery_Address,@Land_Mark,@Status,@DeliveryLocationLattitude,@DeliveryLocationLongitude,@CreateDate,@modifieddate,@OTP,@mobile1,@mobile2,@ProfileImage,@ProfilePic,@CustomerType)",con);
+            MySqlCommand cmd = new MySqlCommand("Insert Into Customer(Firstname,Lastname,Email,Password,Billing_Address,Delivery_Address,Land_Mark,Status,DeliveryLocationLattitude,DeliveryLocationLongitude,CreateDate,modifieddate,OTP,mobile1,mobile2,ProfileImage,ProfilePic,CustomerType,confirmpassword) values (@Firstname,@Lastname,@Email,@Password,@Billing_Address,@Delivery_Address,@Land_Mark,@Status,@DeliveryLocationLattitude,@DeliveryLocationLongitude,@CreateDate,@modifieddate,@OTP,@mobile1,@mobile2,@ProfileImage,@ProfilePic,@CustomerType,@confirmpassword)", con);
             MySqlDataAdapter sda = new MySqlDataAdapter(cmd);
             cmd.Parameters.AddWithValue("@Firstname", customer.Firstname);
             cmd.Parameters.AddWithValue("@Lastname", customer.Lastname);
             cmd.Parameters.AddWithValue("@Email", customer.Email);
             cmd.Parameters.AddWithValue("@Password", customer.Password);
+            cmd.Parameters.AddWithValue("@confirmpassword", customer.confirmpassword);
             cmd.Parameters.AddWithValue("@Billing_Address", customer.Billing_Address);
             cmd.Parameters.AddWithValue("@Delivery_Address", customer.Delivery_Address);
             cmd.Parameters.AddWithValue("@Land_Mark", customer.Land_Mark);
@@ -32,7 +33,7 @@ namespace mvrapi.Models
             cmd.Parameters.AddWithValue("@DeliveryLocationLattitude", customer.DeliveryLocationLattitude);
             cmd.Parameters.AddWithValue("@DeliveryLocationLongitude", customer.DeliveryLocationLongitude);
             cmd.Parameters.AddWithValue("@CreateDate", DateTime.Now.ToString("dd/MM/yyyy"));
-            //cmd.Parameters.AddWithValue("@modifieddate", DateTime.Now.ToString("dd/MM/yyyy"));
+            cmd.Parameters.AddWithValue("@modifieddate", DateTime.Now.ToString("dd/MM/yyyy"));
             cmd.Parameters.AddWithValue("@OTP", customer.OTP);
             cmd.Parameters.AddWithValue("@mobile1", customer.mobile1);
             cmd.Parameters.AddWithValue("@mobile2", customer.mobile2);
@@ -74,25 +75,26 @@ namespace mvrapi.Models
             return msg;
         }
 
-        public string CustomerLogin(string email,string password)
+        public Customer CustomerLogin(string email,string password)
         {
-            string msg;
+            //string msg;
             MySqlConnection con = new MySqlConnection(constr);
             MySqlCommand cmd = new MySqlCommand("select * from Customer where Email=@Email && Password=@Password", con);
             cmd.Parameters.AddWithValue("@Email", email);
             cmd.Parameters.AddWithValue("@Password", password);
             con.Open();
             MySqlDataReader dr = cmd.ExecuteReader();
-            if(dr.Read())
+            Customer customer = null;
+            while (dr.Read())
             {
-                msg = "0";
+                customer = new Customer();
+                customer.Firstname = dr.GetValue(1).ToString();
+                customer.Lastname = dr.GetValue(2).ToString();
+                customer.Email = dr.GetValue(3).ToString();
             }
-            else
-            {
-                msg = "1";
-            }
+          
             con.Close();
-            return msg;
+            return customer;
 
         }
     }

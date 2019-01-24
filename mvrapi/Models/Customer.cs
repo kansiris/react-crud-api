@@ -26,5 +26,6 @@ namespace mvrapi.Models
         public string Status { get; set; }
         public string ProfileImage { get; set; }
         public string ProfilePic { get; set; }
+        public string confirmpassword { get; set; }
     }
 }
