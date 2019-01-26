@@ -130,9 +130,13 @@ namespace mvrapi.Models
             List<villageproduct> productdetails = new List<villageproduct>();
             var cartids = id.Trim(',').Split(',');
             villageproduct product = new villageproduct();
+           
             for (int i = 0; i < cartids.Length; i++)
             {
+                
                 var cid = Regex.Replace(cartids[i], @"\s", "");
+                if(cid!= "null" && cid!="")
+                {
                 int Id = Convert.ToInt32(cid);
                 MySqlConnection con = new MySqlConnection(constr);
                 MySqlCommand cmd = new MySqlCommand("Select * from villageproduct where id=@id", con);
@@ -165,8 +169,9 @@ namespace mvrapi.Models
                 }
                 con.Close();
                 productdetails.Add(product);
+                }
             }
-          
+           
 
             return productdetails;  
       }
@@ -199,6 +204,7 @@ namespace mvrapi.Models
             while (rdr.Read())
             {
                 villageproduct product = new villageproduct();
+                product.id = Convert.ToInt32(rdr.GetValue(0));
                 product.ProductId = rdr.GetValue(1).ToString();
                 product.Productname = rdr.GetValue(2).ToString();
                 product.Price = rdr.GetValue(3).ToString();
