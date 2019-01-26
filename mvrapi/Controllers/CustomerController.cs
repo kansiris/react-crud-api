@@ -87,9 +87,9 @@ namespace mvrapi.Controllers
             }
            
         }
-        [HttpPost]
+        [HttpGet]
         [Route("api/Customer/GetCustomerbyemail")]
-        public IHttpActionResult GetCustomerbyemail(string email)
+        public IHttpActionResult GetCustomerbyemail([FromUri]string email)
         {
             var details = custm.Sendpassword(email);
             if(details!=null)
