@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Text.RegularExpressions;
 using System.Web.Http;
 
 namespace mvrapi.Controllers
@@ -68,6 +69,21 @@ namespace mvrapi.Controllers
             var data = prdctdetails.Getallproducts();
             return Json(data);
         }
-       
+        [HttpGet]
+        [Route("api/Product/GetProductlistbyid")]
+        public IHttpActionResult GetProductlistbyid(string id)
+        {
+           
+           var datalist = prdctdetails.getproductbyid(id);
+            return Json(datalist);
+        }
+        [HttpGet]
+        [Route("api/Product/GetProductbyid")]
+        public IHttpActionResult GetProductbyid(string id)
+        {
+
+            var data = prdctdetails.getbyid(Convert.ToInt32(id));
+            return Json(data);
+        }
     }
 }

@@ -6,6 +6,8 @@ using System.Data;
 using System.Configuration;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
+using System.Text;
+using System.IO;
 
 namespace mvrapi.Models
 {
@@ -38,7 +40,7 @@ namespace mvrapi.Models
             cmd.Parameters.AddWithValue("@mobile2", customer.mobile2);
             cmd.Parameters.AddWithValue("@ProfileImage", customer.ProfileImage);
             cmd.Parameters.AddWithValue("@ProfilePic", customer.ProfilePic);
-            cmd.Parameters.AddWithValue("@@CustomerType", customer.CustomerType);
+            cmd.Parameters.AddWithValue("@CustomerType", customer.CustomerType);
             con.Open();
            int i= cmd.ExecuteNonQuery();
             con.Close();
@@ -74,6 +76,43 @@ namespace mvrapi.Models
             return msg;
         }
 
+        public Customer Sendpassword(string email)
+        {
+            //string msg;
+            MySqlConnection con = new MySqlConnection(constr);
+            MySqlCommand cmd = new MySqlCommand("select * from Customer where Email=@Email", con);
+            cmd.Parameters.AddWithValue("@Email", email);
+            con.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+            Customer customer = null;
+            while (dr.Read())
+            {
+                customer = new Customer();
+                customer.Firstname = dr.GetValue(1).ToString();
+                customer.Lastname = dr.GetValue(2).ToString();
+                customer.Email = dr.GetValue(3).ToString();
+                customer.Password = dr.GetValue(4).ToString();
+                customer.Billing_Address = dr.GetValue(5).ToString();
+                customer.Delivery_Address = dr.GetValue(6).ToString();
+                customer.Land_Mark = dr.GetValue(7).ToString();
+                customer.mobile1 = dr.GetValue(8).ToString();
+                customer.mobile2 = dr.GetValue(9).ToString();
+                customer.CustomerType = dr.GetValue(10).ToString();
+                customer.DeliveryLocationLattitude = dr.GetValue(11).ToString();
+                customer.DeliveryLocationLongitude = dr.GetValue(12).ToString();
+                customer.CreateDate = dr.GetValue(13).ToString();
+                customer.modifieddate = dr.GetValue(14).ToString();
+                customer.Status = dr.GetValue(15).ToString();
+                customer.ProfileImage = dr.GetValue(16).ToString();
+                customer.ProfilePic = dr.GetValue(17).ToString();
+                customer.OTP = dr.GetValue(18).ToString();
+
+            }
+
+            con.Close();
+            return customer;
+        }
+
         public Customer CustomerLogin(string email,string password)
         {
             //string msg;
@@ -97,8 +136,8 @@ namespace mvrapi.Models
                 customer.mobile1 = dr.GetValue(8).ToString();
                 customer.mobile2 = dr.GetValue(9).ToString();
                 customer.CustomerType = dr.GetValue(10).ToString();
-                customer.DeliveryLocationLattitude = (dr.GetValue(11).ToString());
-                customer.DeliveryLocationLongitude = (dr.GetValue(12).ToString());
+                customer.DeliveryLocationLattitude = dr.GetValue(11).ToString();
+                customer.DeliveryLocationLongitude = dr.GetValue(12).ToString();
                 customer.CreateDate = dr.GetValue(13).ToString();
                 customer.modifieddate = dr.GetValue(14).ToString();
                 customer.Status = dr.GetValue(15).ToString();
