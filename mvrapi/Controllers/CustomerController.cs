@@ -54,8 +54,8 @@ namespace mvrapi.Controllers
         }
 
         [HttpPost]
-       [Route("api/Customer/sendemail")]
-        public IHttpActionResult SendPasswordmail(string email)
+       [Route("api/Customer/SendPasswordmail")]
+        public IHttpActionResult SendPasswordmail([FromUri]string email)
         {
           
             Customer custdetails = new Customer();
