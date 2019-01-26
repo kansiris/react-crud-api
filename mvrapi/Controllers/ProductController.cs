@@ -34,7 +34,6 @@ namespace mvrapi.Controllers
         [Route("api/Product/UpdateProduct")]
         public IHttpActionResult UpdateProduct([FromBody] villageproduct product,[FromUri] int id)
         {
-
             string msg;
             var data = prdctdetails.UpdateProduct(product, id);
             if (data == "Success")
@@ -63,7 +62,6 @@ namespace mvrapi.Controllers
             }
             return Json(msg);
         }
-
         [HttpGet]
         [Route("api/Product/GetAllProducts")]
         public IHttpActionResult GetAllProducts()
