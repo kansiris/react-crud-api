@@ -87,19 +87,37 @@ namespace mvrapi.Controllers
             }
            
         }
+
         [HttpPost]
-        [Route("api/Customer/GetCustomerbyemail")]
-        public IHttpActionResult GetCustomerbyemail(string email)
+        [Route("api/Customer/getcustmerlst")]
+        public IHttpActionResult getcustmerlst(string email)
         {
-            var details = custm.Sendpassword(email);
-            if(details!=null)
+            var datalist = custm.customerbyemail(email);
+            if(datalist!=null)
             {
-                return Json(details);
+                return Json(datalist);
             }
             else
             {
                 return Json("null");
             }
+
         }
+
+
+        //[HttpPost]
+        //[Route("api/Customer/GetCustomerbyemail")]
+        //public IHttpActionResult GetCustomerbyemail(string email)
+        //{
+        //    var details = custm.Sendpassword(email);
+        //    if(details!=null)
+        //    {
+        //        return Json(details);
+        //    }
+        //    else
+        //    {
+        //        return Json("null");
+        //    }
+        //}
     }
 }

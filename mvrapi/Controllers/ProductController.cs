@@ -71,7 +71,7 @@ namespace mvrapi.Controllers
         }
         [HttpGet]
         [Route("api/Product/GetProductlistbyid")]
-        public IHttpActionResult GetProductlistbyid(string id)
+        public IHttpActionResult GetProductlistbyid([FromUri] string id)
         {
            
            var datalist = prdctdetails.getproductbyid(id);
@@ -79,7 +79,7 @@ namespace mvrapi.Controllers
         }
         [HttpGet]
         [Route("api/Product/GetProductbyid")]
-        public IHttpActionResult GetProductbyid(string id)
+        public IHttpActionResult GetProductbyid([FromUri] string id)
         {
 
             var data = prdctdetails.getbyid(Convert.ToInt32(id));
