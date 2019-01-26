@@ -72,32 +72,20 @@ namespace mvrapi.Controllers
             return Json(data);
         }
         [HttpGet]
-        [Route("api/Product/GetProductbyid")]
-        public IHttpActionResult GetProductbyid(string id)
+        [Route("api/Product/GetProductlistbyid")]
+        public IHttpActionResult GetProductlistbyid(string id)
         {
-            //villageproduct datalist = new villageproduct();
-
-            //var cartids = id.Trim(',').Split(',');
-
-            //for (int i=0; i< cartids.Length;i++)
-            //{
-            //    var cid= Regex.Replace(cartids[i], @"\s", "");
-            //    if (cid != null)
-            //    {
-
-            //        datalist = prdctdetails.getproductbyid(int.Parse(cid));
-
-            //    }
-            //    else
-            //    {
-            //        datalist = null;
-
-            //    }
-
-            //}
+           
            var datalist = prdctdetails.getproductbyid(id);
             return Json(datalist);
         }
-       
+        [HttpGet]
+        [Route("api/Product/GetProductbyid")]
+        public IHttpActionResult GetProductbyid(string id)
+        {
+
+            var data = prdctdetails.getbyid(Convert.ToInt32(id));
+            return Json(data);
+        }
     }
 }

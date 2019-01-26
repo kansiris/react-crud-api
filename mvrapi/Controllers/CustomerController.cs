@@ -73,7 +73,7 @@ namespace mvrapi.Controllers
                 readFile = readFile.Replace("[vname]", name);
                 readFile = readFile.Replace("[password]", password);
                 string txtmessage = readFile;//readFile + body;
-                string subj = "Forgot Password from My Villlage";
+                string subj = "Forgot Password Of My Villlage";
                 emailsending emailSendingUtility = new emailsending();
                 emailSendingUtility.Email_myvillage(txtto, txtmessage, subj, null);
                 string targetmails = "lakshmi.p@xsilica.com,seema.g@xsilica.com,sireesh.k@xsilica.com";
