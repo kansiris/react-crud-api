@@ -40,7 +40,7 @@ namespace mvrapi.Models
             cmd.Parameters.AddWithValue("@mobile2", customer.mobile2);
             cmd.Parameters.AddWithValue("@ProfileImage", customer.ProfileImage);
             cmd.Parameters.AddWithValue("@ProfilePic", customer.ProfilePic);
-            cmd.Parameters.AddWithValue("@@CustomerType", customer.CustomerType);
+            cmd.Parameters.AddWithValue("@CustomerType", customer.CustomerType);
             con.Open();
            int i= cmd.ExecuteNonQuery();
             con.Close();
@@ -78,10 +78,11 @@ namespace mvrapi.Models
 
         public Customer Sendpassword(string email)
         {
+            //string msg;
             MySqlConnection con = new MySqlConnection(constr);
-            con.Open();
-            MySqlCommand cmd = new MySqlCommand("select Email from Customer where Email=@Email", con);
+            MySqlCommand cmd = new MySqlCommand("select * from Customer where Email=@Email", con);
             cmd.Parameters.AddWithValue("@Email", email);
+            con.Open();
             MySqlDataReader dr = cmd.ExecuteReader();
             Customer customer = null;
             while (dr.Read())
@@ -105,8 +106,9 @@ namespace mvrapi.Models
                 customer.ProfileImage = dr.GetValue(16).ToString();
                 customer.ProfilePic = dr.GetValue(17).ToString();
                 customer.OTP = dr.GetValue(18).ToString();
+
             }
-            
+
             con.Close();
             return customer;
         }

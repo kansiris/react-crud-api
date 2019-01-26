@@ -19,12 +19,12 @@ namespace mvrapi.Emailsending
         public void Email_myvillage(string txtto, string txtmessage, string subj, HttpPostedFileBase fileUploader)
         {
             MailMessage Msg = new MailMessage();
-            Msg.From = new MailAddress("MyVillage@gmail.com");
+            Msg.From = new MailAddress("maaaahwanamtest@gmail.com");
             Msg.To.Add(txtto);
             //ExbDetails ex = new ExbDetails();
             if (fileUploader != null)
             {
-                string fileName = System.IO.Path.GetFileName(fileUploader.FileName);
+                string fileName = Path.GetFileName(fileUploader.FileName);
                 Msg.Attachments.Add(new Attachment(fileUploader.InputStream, fileName));
 
             }
@@ -35,15 +35,15 @@ namespace mvrapi.Emailsending
             SmtpClient smtp = new SmtpClient();
             smtp.Host = ("smtp.gmail.com").ToString();
             System.Net.NetworkCredential NetworkCred = new System.Net.NetworkCredential();
-            NetworkCred.UserName = ("MyVillage@gmail.com@gmail.com").ToString();
-            NetworkCred.Password = ("myvillage").ToString();
+            NetworkCred.UserName = ("maaaahwanamtest@gmail.com").ToString();
+            NetworkCred.Password = ("maaaahwanamtest").ToString();
             smtp.UseDefaultCredentials = true;
             smtp.Credentials = NetworkCred;
             smtp.Port = 587;
             smtp.EnableSsl = true;
             smtp.Send(Msg);
 
-        
+
 
         }
      

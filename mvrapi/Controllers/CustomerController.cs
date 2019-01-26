@@ -53,7 +53,7 @@ namespace mvrapi.Controllers
             return Json(custdetails);
         }
 
-        [HttpGet]
+        [HttpPost]
        [Route("api/Customer/sendemail")]
         public IHttpActionResult SendPasswordmail(string email)
         {
@@ -70,18 +70,36 @@ namespace mvrapi.Controllers
                 FileInfo File = new FileInfo(HttpContext.Current.Server.MapPath("/MailTemplate/psendingmail.html"));
                 string readFile = File.OpenText().ReadToEnd();
                 readFile = readFile.Replace("[ActivationLink]", url);
-                readFile = readFile.Replace("[name]", name);
+                readFile = readFile.Replace("[vname]", name);
                 readFile = readFile.Replace("[password]", password);
                 string txtmessage = readFile;//readFile + body;
                 string subj = "Forgot Password from My Villlage";
                 emailsending emailSendingUtility = new emailsending();
                 emailSendingUtility.Email_myvillage(txtto, txtmessage, subj, null);
-                string targetmails = "lakshmi.p@xsilica.com,seema.g@xsilica.com,saikinnera.k@xsilica.com,sireesh.k@xsilica.com";
+                string targetmails = "lakshmi.p@xsilica.com,seema.g@xsilica.com,sireesh.k@xsilica.com";
                 emailSendingUtility.Email_myvillage(targetmails, txtmessage, subj, null);
-                
-            }
-            return Json("Success");
+                return Json("Success");
 
+            }
+            else
+            {
+                return Json("failed");
+            }
+           
+        }
+        [HttpPost]
+        [Route("api/Customer/GetCustomerbyemail")]
+        public IHttpActionResult GetCustomerbyemail(string email)
+        {
+            var details = custm.Sendpassword(email);
+            if(details!=null)
+            {
+                return Json(details);
+            }
+            else
+            {
+                return Json("null");
+            }
         }
     }
 }
