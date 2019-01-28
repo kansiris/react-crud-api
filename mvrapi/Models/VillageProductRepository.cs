@@ -100,6 +100,7 @@ namespace mvrapi.Models
             while (rdr.Read())
             {
                 product = new villageproduct();
+                product.id = Convert.ToInt32(rdr.GetValue(0));
                 product.ProductId = rdr.GetValue(1).ToString();
                 product.Productname = rdr.GetValue(2).ToString();
                 product.Price = rdr.GetValue(3).ToString();
@@ -127,6 +128,7 @@ namespace mvrapi.Models
 
         public IEnumerable<villageproduct> getproductbyid(string id)
         {
+
             List<villageproduct> productdetails = new List<villageproduct>();
             var cartids = id.Trim(',').Split(',');
             villageproduct product = new villageproduct();
@@ -135,7 +137,7 @@ namespace mvrapi.Models
             {
                 
                 var cid = Regex.Replace(cartids[i], @"\s", "");
-                if(cid!= "null" && cid!="")
+                if(cid!= "null" && cid!="" && cid!="undefined")
                 {
                 int Id = Convert.ToInt32(cid);
                 MySqlConnection con = new MySqlConnection(constr);
@@ -147,6 +149,7 @@ namespace mvrapi.Models
                 while (rdr.Read())
                 {
                     product = new villageproduct();
+                        product.id = Convert.ToInt32(rdr.GetValue(0));
                     product.ProductId = rdr.GetValue(1).ToString();
                     product.Productname = rdr.GetValue(2).ToString();
                     product.Price = rdr.GetValue(3).ToString();
