@@ -265,6 +265,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\ProductController.cs" />
     <Compile Include="Controllers\ValuesController.cs" />
     <Compile Include="Emailsending\emailsending.cs" />
@@ -276,6 +277,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerRepository.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\orderdetails.cs" />
     <Compile Include="Models\OrdersRepository.cs" />
     <Compile Include="Models\villageorders.cs" />
     <Compile Include="Models\villageproduct.cs" />
