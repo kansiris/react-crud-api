@@ -276,6 +276,7 @@
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\CustomerRepository.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\OrdersRepository.cs" />
     <Compile Include="Models\villageorders.cs" />
     <Compile Include="Models\villageproduct.cs" />
     <Compile Include="Models\VillageProductRepository.cs" />
