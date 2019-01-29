@@ -14,6 +14,6 @@ namespace mvrapi.Models
         public string Paymentid { get; set; }
         public string CustomerId { get; set; }
         public string ordertime { get; set; }
-        public str
+        //public str
     }
 }

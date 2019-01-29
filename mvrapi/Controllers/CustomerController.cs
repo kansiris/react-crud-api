@@ -37,7 +37,7 @@ namespace mvrapi.Controllers
 
         [HttpPost]
         [Route("api/Customer/updatecustomer")]
-        public IHttpActionResult updatecustomer([FromBody] Customer customer,string id)
+        public IHttpActionResult updatecustomer([FromBody] Customer customer, [FromUri] string id)
         { 
 
             string msg;
