@@ -69,6 +69,17 @@ namespace mvrapi.Controllers
             var data = prdctdetails.Getallproducts();
             return Json(data);
         }
+
+        [HttpGet]
+        [Route("api/Product/Productsavailabe")]
+        public IHttpActionResult Productsavailabe()
+        {
+            var data = prdctdetails.Getallproducts().Where(x=>x.Available == "Available");
+
+            return Json(data);
+        }
+
+
         [HttpGet]
         [Route("api/Product/GetProductlistbyid")]
         public IHttpActionResult GetProductlistbyid([FromUri] string id)

@@ -34,9 +34,9 @@ namespace mvrapi.Controllers
 
                 return Json(msg);
         }
-        [HttpPost]
+        [HttpGet]
         [Route("api/Customer/UserLogin")]
-        public IHttpActionResult UserLogin(string email,string password)
+        public IHttpActionResult UserLogin([FromUri] string email, [FromUri] string password)
          {
 
             Customer custdetails = new Customer();

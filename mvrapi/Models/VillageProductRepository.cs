@@ -89,6 +89,42 @@ namespace mvrapi.Models
             }
         }
 
+        public villageproduct getproductsAvailablity(string Available)
+        {
+            MySqlConnection con = new MySqlConnection(constr);
+            MySqlCommand cmd = new MySqlCommand("Select * from villageproduct where Available=@Available", con);
+            cmd.Parameters.AddWithValue("@Available", Available);
+            con.Open();
+            MySqlDataReader rdr = cmd.ExecuteReader();
+            villageproduct product = null;
+            while (rdr.Read())
+            {
+                product = new villageproduct();
+                product.id = Convert.ToInt32(rdr.GetValue(0));
+                product.ProductId = rdr.GetValue(1).ToString();
+                product.Productname = rdr.GetValue(2).ToString();
+                product.Price = rdr.GetValue(3).ToString();
+                product.Quantity = rdr.GetValue(4).ToString();
+                product.weight = rdr.GetValue(5).ToString();
+                product.ShortDescription = rdr.GetValue(6).ToString();
+                product.LongDescription = rdr.GetValue(7).ToString();
+                product.Remarks = rdr.GetValue(8).ToString();
+                product.Available = rdr.GetValue(8).ToString();
+                product.HSNcode = rdr.GetValue(10).ToString();
+                product.SGST = rdr.GetValue(11).ToString();
+                product.CGST = rdr.GetValue(12).ToString();
+                product.Discount = rdr.GetValue(13).ToString();
+                product.brand = rdr.GetValue(14).ToString();
+                product.Image = rdr.GetValue(15).ToString();
+                product.Manfacturedate = rdr.GetValue(16).ToString();
+                product.Expirydate = rdr.GetValue(17).ToString();
+                product.createdate = rdr.GetValue(18).ToString();
+                product.Updateddate = rdr.GetValue(19).ToString();
+            }
+            con.Close();
+            return product;
+        }
+
         public villageproduct getbyid(int id)
         {
             MySqlConnection con = new MySqlConnection(constr);
