@@ -21,7 +21,7 @@ namespace mvrapi.Controllers
         public IHttpActionResult UserRegister([FromBody] Customer customer)
         {
             var data1 = custm.Checkemail(customer.Email);string msg;
-            if(data1=="1")
+            if(data1== "1")
             {
 
                 var data = custm.Register(customer);
@@ -33,6 +33,24 @@ namespace mvrapi.Controllers
             }
 
                 return Json(msg);
+        }
+
+        [HttpPost]
+        [Route("api/Customer/updatecustomer")]
+        public IHttpActionResult updatecustomer([FromBody] Customer customer,string id)
+        { 
+
+            string msg;
+        var details = custm.updatecustomer(customer, Convert.ToInt32(id));
+            if(details== "Success")
+            {
+              msg = "Succesfully updated";
+            }
+            else
+            {
+                msg = "not updated";
+            }
+            return Json(msg);
         }
         [HttpGet]
         [Route("api/Customer/UserLogin")]
@@ -51,6 +69,25 @@ namespace mvrapi.Controllers
             }
 
             return Json(custdetails);
+        }
+
+        [HttpPost]
+        [Route("api/Customer/GuestRegister")]
+        public IHttpActionResult GuestRegister([FromBody] Customer customer)
+        {
+            var data1 = custm.Checkemail(customer.Email); string msg;
+            if (data1 == "1")
+            {
+
+                var data = custm.Register(customer);
+                msg = "Succesfully Registered";
+            }
+            else
+            {
+                msg = "Customer Email is Existed plz registered with another email";
+            }
+
+            return Json(msg);
         }
 
         [HttpPost]

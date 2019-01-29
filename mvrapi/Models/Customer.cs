@@ -26,6 +26,9 @@ namespace mvrapi.Models
         public string Status { get; set; }
         public string ProfileImage { get; set; }
         public string ProfilePic { get; set; }
-      
+      public string City { get; set; }
+        public string State { get; set; }
+        public string Country { get; set; }
+        public string Zipecode { get; set; }
     }
 }
