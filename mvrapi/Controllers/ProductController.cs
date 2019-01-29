@@ -72,9 +72,9 @@ namespace mvrapi.Controllers
 
         [HttpGet]
         [Route("api/Product/Productsavailabe")]
-        public IHttpActionResult Productsavailabe()
+        public IHttpActionResult Productsavailabe(string Available)
         {
-            var data = prdctdetails.Getallproducts().Where(x=>x.Available == "Available");
+            var data = prdctdetails.Productsavailabe(Available);
 
             return Json(data);
         }

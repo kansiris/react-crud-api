@@ -59,20 +59,19 @@ namespace mvrapi.Models
         {
 
             MySqlConnection con = new MySqlConnection(constr);
-            MySqlCommand cmd = new MySqlCommand("update Customer set Firstname=@Firstname,Lastname=@Lastname,Email=@Email,Password=@Password,Billing_Address=@Billing_Address,Delivery_Address=@Delivery_Address,Land_Mark=@Land_Mark,Status=@Status,DeliveryLocationLattitude=@DeliveryLocationLattitude,DeliveryLocationLongitude=@DeliveryLocationLongitude,modifieddate=@modifieddate,OTP=@OTP,mobile1=@mobile1,mobile2=@mobile2,ProfileImage=@ProfileImage,ProfilePic=@ProfilePic,CustomerType=@CustomerType where CustomerId=@CustomerId", con);
+            MySqlCommand cmd = new MySqlCommand("update Customer set Firstname=@Firstname,Lastname=@Lastname,Email=@Email,Password=@Password,Billing_Address=@Billing_Address,Delivery_Address=@Delivery_Address,Land_Mark=@Land_Mark,Status=@Status,modifieddate=@modifieddate,OTP=@OTP,mobile1=@mobile1,mobile2=@mobile2,ProfileImage=@ProfileImage,ProfilePic=@ProfilePic,CustomerType=@CustomerType where CustomerId=@CustomerId", con);
             MySqlDataAdapter sda = new MySqlDataAdapter(cmd);
             cmd.Parameters.AddWithValue("@CustomerId", id);
             cmd.Parameters.AddWithValue("@Firstname", customer.Firstname);
             cmd.Parameters.AddWithValue("@Lastname", customer.Lastname);
-            var details = customerdetailsbyid(id);
-            cmd.Parameters.AddWithValue("@Email", details.Email);
+            cmd.Parameters.AddWithValue("@Email", customer.Email);
             cmd.Parameters.AddWithValue("@Password", customer.Password);
             cmd.Parameters.AddWithValue("@Billing_Address", customer.Billing_Address);
             cmd.Parameters.AddWithValue("@Delivery_Address", customer.Delivery_Address);
             cmd.Parameters.AddWithValue("@Land_Mark", customer.Land_Mark);
             cmd.Parameters.AddWithValue("@Status", customer.Status);
-            cmd.Parameters.AddWithValue("@DeliveryLocationLattitude", customer.DeliveryLocationLattitude);
-            cmd.Parameters.AddWithValue("@DeliveryLocationLongitude", customer.DeliveryLocationLongitude);          
+            //cmd.Parameters.AddWithValue("@DeliveryLocationLattitude", customer.DeliveryLocationLattitude);
+            //cmd.Parameters.AddWithValue("@DeliveryLocationLongitude", customer.DeliveryLocationLongitude);          
             cmd.Parameters.AddWithValue("@modifieddate", DateTime.Now.ToString("dd/MM/yyyy"));
             cmd.Parameters.AddWithValue("@OTP", customer.OTP);
             cmd.Parameters.AddWithValue("@mobile1", customer.mobile1);

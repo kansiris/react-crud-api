@@ -41,7 +41,8 @@ namespace mvrapi.Controllers
         { 
 
             string msg;
-        var details = custm.updatecustomer(customer, Convert.ToInt32(id));
+            var datalist = custm.customerdetailsemail(customer.Email);
+            var details = custm.updatecustomer(customer, Convert.ToInt32(datalist.CustomerId));
             if(details== "Success")
             {
               msg = "Succesfully updated";
