@@ -104,6 +104,22 @@ namespace mvrapi.Controllers
 
         }
 
+        [HttpGet]
+        [Route("api/Customer/getcustmer")]
+        public IHttpActionResult getcustmer([FromUri] string email)
+        {
+            var datalist = custm.customerdetailsemail(email);
+            if (datalist != null)
+            {
+                return Json(datalist);
+            }
+            else
+            {
+                return Json("null");
+            }
+
+        }
+
 
         //[HttpPost]
         //[Route("api/Customer/GetCustomerbyemail")]

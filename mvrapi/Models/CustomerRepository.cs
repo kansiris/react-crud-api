@@ -150,6 +150,43 @@ namespace mvrapi.Models
             return customerlst;
         }
 
+        public Customer customerdetailsemail(string email)
+        {
+           
+            MySqlConnection con = new MySqlConnection(constr);
+            MySqlCommand cmd = new MySqlCommand("select * from Customer where Email=@Email", con);
+            cmd.Parameters.AddWithValue("@Email", email);
+            con.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+            Customer customer = null;
+
+            while (dr.Read())
+            {
+                customer = new Customer();
+                customer.Firstname = dr.GetValue(1).ToString();
+                customer.Lastname = dr.GetValue(2).ToString();
+                customer.Email = dr.GetValue(3).ToString();
+                customer.Password = dr.GetValue(4).ToString();
+                customer.Billing_Address = dr.GetValue(5).ToString();
+                customer.Delivery_Address = dr.GetValue(6).ToString();
+                customer.Land_Mark = dr.GetValue(7).ToString();
+                customer.Status = dr.GetValue(8).ToString();
+                customer.DeliveryLocationLattitude = dr.GetValue(9).ToString();
+                customer.DeliveryLocationLongitude = dr.GetValue(10).ToString();
+                customer.CreateDate = dr.GetValue(11).ToString();
+                customer.modifieddate = dr.GetValue(12).ToString();
+                customer.OTP = dr.GetValue(13).ToString();
+                customer.mobile1 = dr.GetValue(14).ToString();
+                customer.mobile2 = dr.GetValue(15).ToString();
+                customer.ProfileImage = dr.GetValue(16).ToString();
+                customer.ProfilePic = dr.GetValue(17).ToString();
+                customer.CustomerType = dr.GetValue(18).ToString();
+               
+            }
+
+            con.Close();
+            return customer;
+        }
         public Customer CustomerLogin(string email,string password)
         {
             //string msg;
