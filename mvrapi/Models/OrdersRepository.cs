@@ -11,17 +11,19 @@ namespace mvrapi.Models
     {
         string constr = ConfigurationManager.ConnectionStrings["apicontstr"].ConnectionString;
         CustomerRepository custm = new CustomerRepository();
-        public string InsertOrder(villageorders order, string email)
+       public string InsertOrder(villageorders order, string email)
+        //public string InsertOrder(villageorders order)
         {
             MySqlConnection con = new MySqlConnection(constr);
-            MySqlCommand cmd = new MySqlCommand("Insert Into villageorders(Orderdate,OrderStatus,Paymentid,CustomerId,ordertime,Discount,Remarks,Deliverycharges,CGST,SGST,Totalamount,Deliveryarea,Transactionid,transactionstatus) values (@Orderdate,@OrderStatus,@Paymentid,@CustomerId,@ordertime,@orderdeliveredtime,@Discount,@Remarks,@Deliverycharges,@CGST,@SGST,@Totalamount,@Deliveryarea,@Transactionid,@transactionstatus)", con);
+            MySqlCommand cmd = new MySqlCommand("Insert Into villageorders(Orderdate,OrderStatus,Paymentid,CustomerId,ordertime,Discount,Remarks,Deliverycharges,CGST,SGST,Totalamount,Deliveryarea,Transactionid,transactionstatus) values (@Orderdate,@OrderStatus,@Paymentid,@CustomerId,@ordertime,@Discount,@Remarks,@Deliverycharges,@CGST,@SGST,@Totalamount,@Deliveryarea,@Transactionid,@transactionstatus)", con);
             MySqlDataAdapter sda = new MySqlDataAdapter(cmd);
             cmd.Parameters.AddWithValue("@Orderdate", DateTime.Now.ToString("dd/MM/yyyy"));
             cmd.Parameters.AddWithValue("@OrderStatus", order.OrderStatus);
             cmd.Parameters.AddWithValue("@Paymentid", order.Transactionid);
             var details = custm.customerdetailsemail(email);
             cmd.Parameters.AddWithValue("@CustomerId", details.CustomerId);
-            cmd.Parameters.AddWithValue("@ordertime", DateTime.Now.ToString("HH:mm:ss tt"));
+            //cmd.Parameters.AddWithValue("@CustomerId", order.CustomerId);
+            cmd.Parameters.AddWithValue("@ordertime", DateTime.Now.ToString("HH:mm:ss"));
             cmd.Parameters.AddWithValue("@Discount", order.Discount);
             cmd.Parameters.AddWithValue("@Remarks", order.Remarks);
             cmd.Parameters.AddWithValue("@Deliverycharges", order.Deliverycharges);
@@ -177,21 +179,23 @@ namespace mvrapi.Models
         public long retriveorderid()
         {
             MySqlConnection con = new MySqlConnection(constr);
-            MySqlCommand cmd = new MySqlCommand("select top 1 OrderId from villageorders orderby OrderId desc", con);
+            //MySqlCommand cmd = new MySqlCommand("select top 1 OrderId from villageorders orderby OrderId desc", con);
+            MySqlCommand cmd = new MySqlCommand("select OrderId from villageorders ORDER BY OrderId desc LIMIT 1", con);
             con.Open();
             MySqlDataReader dr = cmd.ExecuteReader();
             if (dr.Read())
                 return (long)dr.GetValue(0);
+            con.Close();
             return 0;
         }
         public string InsertOrderdetails(orderdetails order)
         {
             MySqlConnection con = new MySqlConnection(constr);
-            MySqlCommand cmd = new MySqlCommand("Insert Into orderdetails(Productid,Quantity,OrderdetailId) values (@Productid,@Quantity,@OrderdetailId)", con);
+            MySqlCommand cmd = new MySqlCommand("Insert Into orderdetails(ProductId,Quantity,orderid) values (@ProductId,@Quantity,@orderid)", con);
             MySqlDataAdapter sda = new MySqlDataAdapter(cmd);
-            cmd.Parameters.AddWithValue("@Productid", order.Productid);
+            cmd.Parameters.AddWithValue("@ProductId", order.ProductId);
             cmd.Parameters.AddWithValue("@Quantity", "1");
-            cmd.Parameters.AddWithValue("@OrderdetailId", order.OrderdetailId);          
+            cmd.Parameters.AddWithValue("@orderid", order.orderid);          
             con.Open();
             int i = cmd.ExecuteNonQuery();
             con.Close();
@@ -200,6 +204,25 @@ namespace mvrapi.Models
                 return "success";
             }
             return "failed";
+        }
+
+        public orderdetails getorderbyorderid(string orderid)
+        {
+            MySqlConnection con = new MySqlConnection(constr);
+            MySqlCommand cmd = new MySqlCommand("Select * from orderdetails where orderid=@orderid", con);
+            cmd.Parameters.AddWithValue("@orderid", orderid);
+            con.Open();
+            MySqlDataReader dr = cmd.ExecuteReader();
+            orderdetails details = null;
+           while (dr.Read())
+            {
+                details.orderdetailid = Convert.ToInt64(dr.GetValue(0));
+                details.ProductId = dr.GetValue(1).ToString();
+                details.Quantity = dr.GetValue(2).ToString();
+                details.orderid = dr.GetValue(3).ToString();
+            }
+            con.Close();
+            return details;
         }
     }
 }

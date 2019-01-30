@@ -270,6 +270,7 @@ namespace mvrapi.Models
         }
         public IEnumerable<villageproduct> Productsavailabe(string Available)
         {
+
             List<villageproduct> productdetails = new List<villageproduct>();
             MySqlConnection con = new MySqlConnection(constr);
             MySqlCommand cmd = new MySqlCommand("Select * from villageproduct  where Available=@Available", con); cmd.Parameters.AddWithValue("@Available", Available);
