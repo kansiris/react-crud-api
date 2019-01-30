@@ -1,5 +1,6 @@
 ﻿using mvrapi.Models;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -65,8 +66,13 @@ namespace mvrapi.Controllers
         [Route("api/Order/Getalldetails")]
         public IHttpActionResult Getalldetails([FromUri] string Oid)
         {
+
+            
             var orders = orderrepo.getorderbyid(Oid);
+
             var orderdetails = orderrepo.getorderbyorderid(Oid);
+            List<orderdetails> od = new List<orderdetails>();
+            var od1 = ((IEnumerable)orderdetails).Cast<object>().ToList();
             var custdetails = custmrepo.customerdetailsbyid(Convert.ToInt32(orders.CustomerId));
             AllOrderdetails alldetails = new AllOrderdetails();
             alldetails.CustomerId = custdetails.CustomerId;
@@ -91,10 +97,22 @@ namespace mvrapi.Controllers
             alldetails.State = custdetails.Status;
             alldetails.Country = custdetails.Country;
             alldetails.Zipecode = custdetails.Zipecode;
-            alldetails.orderdetailid = orderdetails.orderdetailid;
-            alldetails.ProductId = orderdetails.ProductId;
-            alldetails.Quantity = orderdetails.Quantity;
+            //alldetails.orderdetailid = orderdetails.orderdetailid;
+            //alldetails.ProductId = orderdetails.ProductId;
+            //alldetails.Quantity = orderdetails.Quantity;
             //alldetails.orderid = orderdetails.orderid;
+
+            //List<orderdetails> odet = new List<orderdetails>();
+            //for (int i = 0; i <= od1.Count(); i++)
+            //{
+            //    orderdetails orderdetail1 = new orderdetails();
+            //    orderdetail1.orderdetailid = orderdetails.orderdetailid;
+            //    orderdetail1.ProductId = orderdetails.ProductId;
+            //    orderdetail1.Quantity = orderdetails.Quantity;
+            //    orderdetail1.orderid = orderdetails.orderid;
+            //    odet.Add(orderdetail1);
+            //}
+            alldetails.orderdetaillist = orderdetails;
             alldetails.OrderId = orders.OrderId;
             alldetails.OrderStatus = orders.OrderStatus;
             alldetails.Paymentid = orders.Paymentid;
@@ -156,6 +174,7 @@ namespace mvrapi.Controllers
             public string Deliveryarea { get; set; }
             public string Transactionid { get; set; }
             public string transactionstatus { get; set; }
+            public List<orderdetails> orderdetaillist { get; set; }
         }
     }
 }

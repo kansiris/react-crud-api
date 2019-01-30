@@ -206,23 +206,26 @@ namespace mvrapi.Models
             return "failed";
         }
 
-        public orderdetails getorderbyorderid(string orderid)
+        public List<orderdetails> getorderbyorderid(string oid)
         {
+            List<orderdetails> detaillst = new List<orderdetails>();
             MySqlConnection con = new MySqlConnection(constr);
             MySqlCommand cmd = new MySqlCommand("Select * from orderdetails where orderid=@orderid", con);
-            cmd.Parameters.AddWithValue("@orderid", orderid);
+            cmd.Parameters.AddWithValue("@orderid", oid);
             con.Open();
             MySqlDataReader dr = cmd.ExecuteReader();
-            orderdetails details = null;
+            
            while (dr.Read())
             {
-                details.orderdetailid = Convert.ToInt64(dr.GetValue(0));
+                orderdetails details = new orderdetails();
+                //details.orderdetailid = Convert.ToInt64(dr.GetValue(0));
                 details.ProductId = dr.GetValue(1).ToString();
                 details.Quantity = dr.GetValue(2).ToString();
                 details.orderid = dr.GetValue(3).ToString();
+                detaillst.Add(details);
             }
             con.Close();
-            return details;
+            return detaillst;
         }
     }
 }
