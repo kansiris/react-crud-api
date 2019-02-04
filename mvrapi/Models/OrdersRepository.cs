@@ -1,4 +1,6 @@
 ﻿using MySql.Data.MySqlClient;
+using System.Data;
+using MySql.Data;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -226,6 +228,18 @@ namespace mvrapi.Models
             }
             con.Close();
             return detaillst;
+        }
+
+        public DataTable Getalldetails(long Oid)
+        {
+            MySqlConnection con = new MySqlConnection(constr);
+            MySqlCommand cmd = new MySqlCommand("orderdisplay_result", con);
+            cmd.CommandType = CommandType.StoredProcedure;
+            cmd.Parameters.AddWithValue("Oid", Oid);
+            MySqlDataAdapter da = new MySqlDataAdapter(cmd);
+            DataTable dt = new DataTable();
+            da.Fill(dt);
+            return dt;
         }
     }
 }
