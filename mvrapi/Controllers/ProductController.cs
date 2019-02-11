@@ -14,6 +14,17 @@ namespace mvrapi.Controllers
 
         VillageProductRepository prdctdetails = new VillageProductRepository();
 
+        [HttpGet]
+        //[Route("api/product/home")]
+        [ActionName("home")]
+        public IHttpActionResult home()
+        {
+            return Json("Hi");
+        }
+
+
+
+
         [HttpPost]
         [Route("api/Product/AddProduct")]
         public IHttpActionResult AddProduct([FromBody] villageproduct product)
@@ -63,7 +74,7 @@ namespace mvrapi.Controllers
             return Json(msg);
         }
         [HttpGet]
-        [Route("api/Product/GetAllProducts")]
+        [Route("api/product/getall")]
         public IHttpActionResult GetAllProducts()
         {
             var data = prdctdetails.Getallproducts();
