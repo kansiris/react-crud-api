@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
@@ -31,6 +32,14 @@ namespace mvrapi.Models
             cmd.Parameters.AddWithValue("@CGST", product.CGST);
             cmd.Parameters.AddWithValue("@Discount", product.Discount);
             cmd.Parameters.AddWithValue("@brand", product.brand);
+            var httpRequest = HttpContext.Current.Request;
+            var postedFile = httpRequest.Files["file"];
+            string fileName = Path.GetFileNameWithoutExtension(postedFile.FileName);
+            string extension = Path.GetExtension(postedFile.FileName);
+            fileName = fileName + DateTime.Now.ToString("yymmssfff") + extension;
+            var filePath = HttpContext.Current.Server.MapPath("~Images" + fileName);
+            postedFile.SaveAs(filePath);
+            product.Image = fileName;
             cmd.Parameters.AddWithValue("@Image", product.Image);
             cmd.Parameters.AddWithValue("@Manfacturedate", product.Manfacturedate);
             cmd.Parameters.AddWithValue("@Expirydate", product.Expirydate);
